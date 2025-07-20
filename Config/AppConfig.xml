@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<database>
+		<host>localhost</host>
+		<port>3306</port>
+		<user>root</user>
+		<password>1234</password>
+		<databaseName>aircraft_control</databaseName>
+	</database>
+	<network>
+		<serverAddress>127.0.0.1</serverAddress>
+		<port>5050</port>
+		<protocol>TCP</protocol>
+	</network>
+</config>
+
