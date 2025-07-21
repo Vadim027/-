@@ -42,32 +42,28 @@ namespace Управление_самолетами.Services
             return list;
         }
 
-        public void AddManufacturer(Manufacturer m)
+        public void AddManufacturer(string name, string description)
         {
             using (var conn = new MySqlConnection(_connStr))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("INSERT INTO manufacturer(name,description) VALUES(@n,@d)", conn))
-                {
-                    cmd.Parameters.AddWithValue("@n", m.Name);
-                    cmd.Parameters.AddWithValue("@d", m.Description);
-                    cmd.ExecuteNonQuery();
-                }
+                var cmd = new MySqlCommand("INSERT INTO manufacturer (name, description) VALUES (@n, @d)", conn);
+                cmd.Parameters.AddWithValue("@n", name);
+                cmd.Parameters.AddWithValue("@d", description);
+                cmd.ExecuteNonQuery();
             }
         }
 
-        public void UpdateManufacturer(Manufacturer m)
+        public void UpdateManufacturer(int id, string name, string description)
         {
             using (var conn = new MySqlConnection(_connStr))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("UPDATE manufacturer SET name=@n, description=@d WHERE id=@i", conn))
-                {
-                    cmd.Parameters.AddWithValue("@i", m.Id);
-                    cmd.Parameters.AddWithValue("@n", m.Name);
-                    cmd.Parameters.AddWithValue("@d", m.Description);
-                    cmd.ExecuteNonQuery();
-                }
+                var cmd = new MySqlCommand("UPDATE manufacturer SET name = @n, description = @d WHERE id = @id", conn);
+                cmd.Parameters.AddWithValue("@n", name);
+                cmd.Parameters.AddWithValue("@d", description);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -76,14 +72,12 @@ namespace Управление_самолетами.Services
             using (var conn = new MySqlConnection(_connStr))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("DELETE FROM manufacturer WHERE id=@i", conn))
-                {
-                    cmd.Parameters.AddWithValue("@i", id);
-                    cmd.ExecuteNonQuery();
-                }
+                var cmd = new MySqlCommand("DELETE FROM manufacturer WHERE id = @id", conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
             }
         }
 
-        // Тут потом добавишь Aircraft и AircraftStatus по такому же шаблону.
+        // Тут я потом добавлю еще Aircraft и AircraftStatus.
     }
 }

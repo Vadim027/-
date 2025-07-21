@@ -30,28 +30,30 @@
         {
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabManufacturers = new System.Windows.Forms.TabPage();
+            this.btnDeleteManufacturer = new System.Windows.Forms.Button();
             this.dgvManufacturers = new System.Windows.Forms.DataGridView();
             this.tabAircrafts = new System.Windows.Forms.TabPage();
-            this.tabStatus = new System.Windows.Forms.TabPage();
-            this.btnAddManufacturer = new System.Windows.Forms.Button();
-            this.btnEditManufacturer = new System.Windows.Forms.Button();
-            this.btnDeleteManufacturer = new System.Windows.Forms.Button();
-            this.dgvAircrafts = new System.Windows.Forms.DataGridView();
-            this.btnAddAircraft = new System.Windows.Forms.Button();
-            this.btnEditAircraft = new System.Windows.Forms.Button();
-            this.btnDeleteAircraft = new System.Windows.Forms.Button();
             this.btnPrintAircraft = new System.Windows.Forms.Button();
-            this.dgvStatus = new System.Windows.Forms.DataGridView();
-            this.btnUpdateSpeed = new System.Windows.Forms.Button();
-            this.btnUpdateAltitude = new System.Windows.Forms.Button();
-            this.btnUpdateTurn = new System.Windows.Forms.Button();
+            this.btnDeleteAircraft = new System.Windows.Forms.Button();
+            this.btnEditAircraft = new System.Windows.Forms.Button();
+            this.btnAddAircraft = new System.Windows.Forms.Button();
+            this.dgvAircrafts = new System.Windows.Forms.DataGridView();
+            this.tabStatus = new System.Windows.Forms.TabPage();
             this.btnUpdateGear = new System.Windows.Forms.Button();
+            this.btnUpdateTurn = new System.Windows.Forms.Button();
+            this.btnUpdateAltitude = new System.Windows.Forms.Button();
+            this.btnUpdateSpeed = new System.Windows.Forms.Button();
+            this.dgvStatus = new System.Windows.Forms.DataGridView();
+            this.txtManufacturerName = new System.Windows.Forms.TextBox();
+            this.txtManufacturerDescription = new System.Windows.Forms.TextBox();
+            this.btnSaveManufacturer = new System.Windows.Forms.Button();
+            this.btnAddManufacturer = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabManufacturers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManufacturers)).BeginInit();
             this.tabAircrafts.SuspendLayout();
-            this.tabStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAircrafts)).BeginInit();
+            this.tabStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatus)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,23 +65,35 @@
             this.tabControlMain.Location = new System.Drawing.Point(169, 34);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(536, 328);
+            this.tabControlMain.Size = new System.Drawing.Size(696, 494);
             this.tabControlMain.TabIndex = 0;
             this.tabControlMain.Tag = "";
             // 
             // tabManufacturers
             // 
-            this.tabManufacturers.Controls.Add(this.btnDeleteManufacturer);
-            this.tabManufacturers.Controls.Add(this.btnEditManufacturer);
             this.tabManufacturers.Controls.Add(this.btnAddManufacturer);
+            this.tabManufacturers.Controls.Add(this.btnSaveManufacturer);
+            this.tabManufacturers.Controls.Add(this.txtManufacturerDescription);
+            this.tabManufacturers.Controls.Add(this.txtManufacturerName);
+            this.tabManufacturers.Controls.Add(this.btnDeleteManufacturer);
             this.tabManufacturers.Controls.Add(this.dgvManufacturers);
             this.tabManufacturers.Location = new System.Drawing.Point(4, 25);
             this.tabManufacturers.Name = "tabManufacturers";
             this.tabManufacturers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabManufacturers.Size = new System.Drawing.Size(528, 299);
+            this.tabManufacturers.Size = new System.Drawing.Size(688, 465);
             this.tabManufacturers.TabIndex = 0;
             this.tabManufacturers.Text = "Производители";
             this.tabManufacturers.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteManufacturer
+            // 
+            this.btnDeleteManufacturer.Location = new System.Drawing.Point(314, 313);
+            this.btnDeleteManufacturer.Name = "btnDeleteManufacturer";
+            this.btnDeleteManufacturer.Size = new System.Drawing.Size(158, 60);
+            this.btnDeleteManufacturer.TabIndex = 3;
+            this.btnDeleteManufacturer.Text = "Удалить";
+            this.btnDeleteManufacturer.UseVisualStyleBackColor = true;
+            this.btnDeleteManufacturer.Click += new System.EventHandler(this.btnDeleteManufacturer_Click_1);
             // 
             // dgvManufacturers
             // 
@@ -88,8 +102,10 @@
             this.dgvManufacturers.Name = "dgvManufacturers";
             this.dgvManufacturers.RowHeadersWidth = 51;
             this.dgvManufacturers.RowTemplate.Height = 24;
-            this.dgvManufacturers.Size = new System.Drawing.Size(516, 208);
+            this.dgvManufacturers.Size = new System.Drawing.Size(561, 208);
             this.dgvManufacturers.TabIndex = 0;
+            this.dgvManufacturers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvManufacturers_CellContentClick);
+            this.dgvManufacturers.SelectionChanged += new System.EventHandler(this.dgvManufacturers_SelectionChanged);
             // 
             // tabAircrafts
             // 
@@ -101,10 +117,57 @@
             this.tabAircrafts.Location = new System.Drawing.Point(4, 25);
             this.tabAircrafts.Name = "tabAircrafts";
             this.tabAircrafts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAircrafts.Size = new System.Drawing.Size(528, 299);
+            this.tabAircrafts.Size = new System.Drawing.Size(688, 465);
             this.tabAircrafts.TabIndex = 1;
             this.tabAircrafts.Text = "Самолёты";
             this.tabAircrafts.UseVisualStyleBackColor = true;
+            // 
+            // btnPrintAircraft
+            // 
+            this.btnPrintAircraft.Location = new System.Drawing.Point(422, 219);
+            this.btnPrintAircraft.Name = "btnPrintAircraft";
+            this.btnPrintAircraft.Size = new System.Drawing.Size(100, 74);
+            this.btnPrintAircraft.TabIndex = 4;
+            this.btnPrintAircraft.Text = "Печать";
+            this.btnPrintAircraft.UseVisualStyleBackColor = true;
+            this.btnPrintAircraft.Click += new System.EventHandler(this.btnPrintAircraft_Click);
+            // 
+            // btnDeleteAircraft
+            // 
+            this.btnDeleteAircraft.Location = new System.Drawing.Point(285, 219);
+            this.btnDeleteAircraft.Name = "btnDeleteAircraft";
+            this.btnDeleteAircraft.Size = new System.Drawing.Size(131, 74);
+            this.btnDeleteAircraft.TabIndex = 3;
+            this.btnDeleteAircraft.Text = "Удалить";
+            this.btnDeleteAircraft.UseVisualStyleBackColor = true;
+            // 
+            // btnEditAircraft
+            // 
+            this.btnEditAircraft.Location = new System.Drawing.Point(146, 219);
+            this.btnEditAircraft.Name = "btnEditAircraft";
+            this.btnEditAircraft.Size = new System.Drawing.Size(133, 74);
+            this.btnEditAircraft.TabIndex = 2;
+            this.btnEditAircraft.Text = "Изменить";
+            this.btnEditAircraft.UseVisualStyleBackColor = true;
+            // 
+            // btnAddAircraft
+            // 
+            this.btnAddAircraft.Location = new System.Drawing.Point(6, 219);
+            this.btnAddAircraft.Name = "btnAddAircraft";
+            this.btnAddAircraft.Size = new System.Drawing.Size(134, 74);
+            this.btnAddAircraft.TabIndex = 1;
+            this.btnAddAircraft.Text = "Добавить";
+            this.btnAddAircraft.UseVisualStyleBackColor = true;
+            // 
+            // dgvAircrafts
+            // 
+            this.dgvAircrafts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAircrafts.Location = new System.Drawing.Point(6, 6);
+            this.dgvAircrafts.Name = "dgvAircrafts";
+            this.dgvAircrafts.RowHeadersWidth = 51;
+            this.dgvAircrafts.RowTemplate.Height = 24;
+            this.dgvAircrafts.Size = new System.Drawing.Size(516, 207);
+            this.dgvAircrafts.TabIndex = 0;
             // 
             // tabStatus
             // 
@@ -121,79 +184,41 @@
             this.tabStatus.Text = "Оперативная информация";
             this.tabStatus.UseVisualStyleBackColor = true;
             // 
-            // btnAddManufacturer
+            // btnUpdateGear
             // 
-            this.btnAddManufacturer.Location = new System.Drawing.Point(6, 220);
-            this.btnAddManufacturer.Name = "btnAddManufacturer";
-            this.btnAddManufacturer.Size = new System.Drawing.Size(182, 73);
-            this.btnAddManufacturer.TabIndex = 1;
-            this.btnAddManufacturer.Text = "Добавить";
-            this.btnAddManufacturer.UseVisualStyleBackColor = true;
+            this.btnUpdateGear.Location = new System.Drawing.Point(398, 206);
+            this.btnUpdateGear.Name = "btnUpdateGear";
+            this.btnUpdateGear.Size = new System.Drawing.Size(124, 87);
+            this.btnUpdateGear.TabIndex = 4;
+            this.btnUpdateGear.Text = "Изменить выпуск шасси";
+            this.btnUpdateGear.UseVisualStyleBackColor = true;
             // 
-            // btnEditManufacturer
+            // btnUpdateTurn
             // 
-            this.btnEditManufacturer.Location = new System.Drawing.Point(194, 220);
-            this.btnEditManufacturer.Name = "btnEditManufacturer";
-            this.btnEditManufacturer.Size = new System.Drawing.Size(153, 73);
-            this.btnEditManufacturer.TabIndex = 2;
-            this.btnEditManufacturer.Text = "Изменить";
-            this.btnEditManufacturer.UseVisualStyleBackColor = true;
+            this.btnUpdateTurn.Location = new System.Drawing.Point(259, 206);
+            this.btnUpdateTurn.Name = "btnUpdateTurn";
+            this.btnUpdateTurn.Size = new System.Drawing.Size(133, 87);
+            this.btnUpdateTurn.TabIndex = 3;
+            this.btnUpdateTurn.Text = "Изменить поворот/скорость поворота";
+            this.btnUpdateTurn.UseVisualStyleBackColor = true;
             // 
-            // btnDeleteManufacturer
+            // btnUpdateAltitude
             // 
-            this.btnDeleteManufacturer.Location = new System.Drawing.Point(353, 220);
-            this.btnDeleteManufacturer.Name = "btnDeleteManufacturer";
-            this.btnDeleteManufacturer.Size = new System.Drawing.Size(169, 73);
-            this.btnDeleteManufacturer.TabIndex = 3;
-            this.btnDeleteManufacturer.Text = "Удалить";
-            this.btnDeleteManufacturer.UseVisualStyleBackColor = true;
+            this.btnUpdateAltitude.Location = new System.Drawing.Point(132, 206);
+            this.btnUpdateAltitude.Name = "btnUpdateAltitude";
+            this.btnUpdateAltitude.Size = new System.Drawing.Size(121, 87);
+            this.btnUpdateAltitude.TabIndex = 2;
+            this.btnUpdateAltitude.Text = "Изменить высоту и скорость набора";
+            this.btnUpdateAltitude.UseVisualStyleBackColor = true;
             // 
-            // dgvAircrafts
+            // btnUpdateSpeed
             // 
-            this.dgvAircrafts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAircrafts.Location = new System.Drawing.Point(6, 6);
-            this.dgvAircrafts.Name = "dgvAircrafts";
-            this.dgvAircrafts.RowHeadersWidth = 51;
-            this.dgvAircrafts.RowTemplate.Height = 24;
-            this.dgvAircrafts.Size = new System.Drawing.Size(516, 207);
-            this.dgvAircrafts.TabIndex = 0;
-            // 
-            // btnAddAircraft
-            // 
-            this.btnAddAircraft.Location = new System.Drawing.Point(6, 219);
-            this.btnAddAircraft.Name = "btnAddAircraft";
-            this.btnAddAircraft.Size = new System.Drawing.Size(134, 74);
-            this.btnAddAircraft.TabIndex = 1;
-            this.btnAddAircraft.Text = "Добавить";
-            this.btnAddAircraft.UseVisualStyleBackColor = true;
-            // 
-            // btnEditAircraft
-            // 
-            this.btnEditAircraft.Location = new System.Drawing.Point(146, 219);
-            this.btnEditAircraft.Name = "btnEditAircraft";
-            this.btnEditAircraft.Size = new System.Drawing.Size(133, 74);
-            this.btnEditAircraft.TabIndex = 2;
-            this.btnEditAircraft.Text = "Изменить";
-            this.btnEditAircraft.UseVisualStyleBackColor = true;
-            // 
-            // btnDeleteAircraft
-            // 
-            this.btnDeleteAircraft.Location = new System.Drawing.Point(285, 219);
-            this.btnDeleteAircraft.Name = "btnDeleteAircraft";
-            this.btnDeleteAircraft.Size = new System.Drawing.Size(131, 74);
-            this.btnDeleteAircraft.TabIndex = 3;
-            this.btnDeleteAircraft.Text = "Удалить";
-            this.btnDeleteAircraft.UseVisualStyleBackColor = true;
-            // 
-            // btnPrintAircraft
-            // 
-            this.btnPrintAircraft.Location = new System.Drawing.Point(422, 219);
-            this.btnPrintAircraft.Name = "btnPrintAircraft";
-            this.btnPrintAircraft.Size = new System.Drawing.Size(100, 74);
-            this.btnPrintAircraft.TabIndex = 4;
-            this.btnPrintAircraft.Text = "Печать";
-            this.btnPrintAircraft.UseVisualStyleBackColor = true;
-            this.btnPrintAircraft.Click += new System.EventHandler(this.btnPrintAircraft_Click);
+            this.btnUpdateSpeed.Location = new System.Drawing.Point(6, 206);
+            this.btnUpdateSpeed.Name = "btnUpdateSpeed";
+            this.btnUpdateSpeed.Size = new System.Drawing.Size(120, 87);
+            this.btnUpdateSpeed.TabIndex = 1;
+            this.btnUpdateSpeed.Text = "Изменить скорость";
+            this.btnUpdateSpeed.UseVisualStyleBackColor = true;
             // 
             // dgvStatus
             // 
@@ -205,41 +230,39 @@
             this.dgvStatus.Size = new System.Drawing.Size(516, 194);
             this.dgvStatus.TabIndex = 0;
             // 
-            // btnUpdateSpeed
+            // txtManufacturerName
             // 
-            this.btnUpdateSpeed.Location = new System.Drawing.Point(6, 206);
-            this.btnUpdateSpeed.Name = "btnUpdateSpeed";
-            this.btnUpdateSpeed.Size = new System.Drawing.Size(120, 87);
-            this.btnUpdateSpeed.TabIndex = 1;
-            this.btnUpdateSpeed.Text = "Изменить скорость";
-            this.btnUpdateSpeed.UseVisualStyleBackColor = true;
+            this.txtManufacturerName.Location = new System.Drawing.Point(6, 233);
+            this.txtManufacturerName.Name = "txtManufacturerName";
+            this.txtManufacturerName.Size = new System.Drawing.Size(129, 22);
+            this.txtManufacturerName.TabIndex = 4;
             // 
-            // btnUpdateAltitude
+            // txtManufacturerDescription
             // 
-            this.btnUpdateAltitude.Location = new System.Drawing.Point(132, 206);
-            this.btnUpdateAltitude.Name = "btnUpdateAltitude";
-            this.btnUpdateAltitude.Size = new System.Drawing.Size(121, 87);
-            this.btnUpdateAltitude.TabIndex = 2;
-            this.btnUpdateAltitude.Text = "Изменить высоту и скорость набора";
-            this.btnUpdateAltitude.UseVisualStyleBackColor = true;
+            this.txtManufacturerDescription.Location = new System.Drawing.Point(6, 271);
+            this.txtManufacturerDescription.Name = "txtManufacturerDescription";
+            this.txtManufacturerDescription.Size = new System.Drawing.Size(129, 22);
+            this.txtManufacturerDescription.TabIndex = 5;
             // 
-            // btnUpdateTurn
+            // btnSaveManufacturer
             // 
-            this.btnUpdateTurn.Location = new System.Drawing.Point(259, 206);
-            this.btnUpdateTurn.Name = "btnUpdateTurn";
-            this.btnUpdateTurn.Size = new System.Drawing.Size(133, 87);
-            this.btnUpdateTurn.TabIndex = 3;
-            this.btnUpdateTurn.Text = "Изменить поворот/скорость поворота";
-            this.btnUpdateTurn.UseVisualStyleBackColor = true;
+            this.btnSaveManufacturer.Location = new System.Drawing.Point(168, 313);
+            this.btnSaveManufacturer.Name = "btnSaveManufacturer";
+            this.btnSaveManufacturer.Size = new System.Drawing.Size(140, 60);
+            this.btnSaveManufacturer.TabIndex = 6;
+            this.btnSaveManufacturer.Text = "Сохранить";
+            this.btnSaveManufacturer.UseVisualStyleBackColor = true;
+            this.btnSaveManufacturer.Click += new System.EventHandler(this.btnSaveManufacturer_Click);
             // 
-            // btnUpdateGear
+            // btnAddManufacturer
             // 
-            this.btnUpdateGear.Location = new System.Drawing.Point(398, 206);
-            this.btnUpdateGear.Name = "btnUpdateGear";
-            this.btnUpdateGear.Size = new System.Drawing.Size(124, 87);
-            this.btnUpdateGear.TabIndex = 4;
-            this.btnUpdateGear.Text = "Изменить выпуск шасси";
-            this.btnUpdateGear.UseVisualStyleBackColor = true;
+            this.btnAddManufacturer.Location = new System.Drawing.Point(7, 313);
+            this.btnAddManufacturer.Name = "btnAddManufacturer";
+            this.btnAddManufacturer.Size = new System.Drawing.Size(155, 60);
+            this.btnAddManufacturer.TabIndex = 7;
+            this.btnAddManufacturer.Text = "Добавить";
+            this.btnAddManufacturer.UseVisualStyleBackColor = true;
+            this.btnAddManufacturer.Click += new System.EventHandler(this.btnAddManufacturer_Click_1);
             // 
             // MainForm
             // 
@@ -251,10 +274,11 @@
             this.Text = "Form1";
             this.tabControlMain.ResumeLayout(false);
             this.tabManufacturers.ResumeLayout(false);
+            this.tabManufacturers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManufacturers)).EndInit();
             this.tabAircrafts.ResumeLayout(false);
-            this.tabStatus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAircrafts)).EndInit();
+            this.tabStatus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatus)).EndInit();
             this.ResumeLayout(false);
 
@@ -268,8 +292,6 @@
         private System.Windows.Forms.TabPage tabStatus;
         private System.Windows.Forms.DataGridView dgvManufacturers;
         private System.Windows.Forms.Button btnDeleteManufacturer;
-        private System.Windows.Forms.Button btnEditManufacturer;
-        private System.Windows.Forms.Button btnAddManufacturer;
         private System.Windows.Forms.DataGridView dgvAircrafts;
         private System.Windows.Forms.Button btnPrintAircraft;
         private System.Windows.Forms.Button btnDeleteAircraft;
@@ -280,6 +302,10 @@
         private System.Windows.Forms.Button btnUpdateAltitude;
         private System.Windows.Forms.Button btnUpdateSpeed;
         private System.Windows.Forms.Button btnUpdateGear;
+        private System.Windows.Forms.Button btnSaveManufacturer;
+        private System.Windows.Forms.TextBox txtManufacturerDescription;
+        private System.Windows.Forms.TextBox txtManufacturerName;
+        private System.Windows.Forms.Button btnAddManufacturer;
     }
 }
 
