@@ -1,22 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Управление_самолетами.Services;  // <-- если папка Services
+using Управление_самолетами.Models;    // <-- если папка Models
 
 namespace Управление_самолетами
 {
     internal static class Program
     {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
+        // Главная точка входа для приложения.
         [STAThread]
         static void Main()
         {
+            var cfg = AppConfig.Load("Config/AppConfig.xml");
+            var db = new DbService(cfg);
+            var net = new NetworkService(cfg);
+            net.Start();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm(cfg, db, net));
         }
     }
 }
