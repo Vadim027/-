@@ -78,6 +78,17 @@ namespace Управление_самолетами.Services
             }
         }
 
+        public bool CanDeleteManufacturer(int id)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("SELECT COUNT(*) FROM aircraft WHERE manufacturer_id = @id", conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                var count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count == 0;
+            }
+        }
         // Тут я потом добавлю еще Aircraft и AircraftStatus.
     }
 }

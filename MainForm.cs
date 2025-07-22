@@ -155,6 +155,12 @@ namespace Управление_самолетами
             var row = dgvManufacturers.CurrentRow.DataBoundItem as Manufacturer;
             if (row == null) return;
 
+            if (!_db.CanDeleteManufacturer(row.Id))
+            {
+                MessageBox.Show("Нельзя удалить производителя, к которому привязаны самолёты!", "Ошибка");
+                return;
+            }
+
             var confirm = MessageBox.Show($"Удалить {row.Name}?", "Подтвердите", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
