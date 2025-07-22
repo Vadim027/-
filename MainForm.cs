@@ -38,61 +38,61 @@ namespace Управление_самолетами
 
         private void btnAddManufacturer_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Добавить производителя — пока заглушка");
+            
         }
 
         private void btnEditManufacturer_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Изменить производителя — пока заглушка");
+            
         }
 
         private void btnDeleteManufacturer_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Удалить производителя — пока заглушка");
+            
         }
 
         // === Самолёты ===
 
         private void btnAddAircraft_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Добавить самолёт — пока заглушка");
+            
         }
 
         private void btnEditAircraft_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Изменить самолёт — пока заглушка");
+            
         }
 
         private void btnDeleteAircraft_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Удалить самолёт — пока заглушка");
+            
         }
 
         private void btnPrintAircraft_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Печать самолётов — пока заглушка");
+            
         }
 
         // === Оперативная информация ===
 
         private void btnUpdateSpeed_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Изменить скорость — пока заглушка");
+            
         }
 
         private void btnUpdateAltitude_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Изменить высоту и скорость набора — пока заглушка");
+            
         }
 
         private void btnUpdateTurn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Изменить поворот/скорость поворота — пока заглушка");
+            
         }
 
         private void btnUpdateGear_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Изменить выпуск шасси — пока заглушка");
+            
         }
 
         private void dgvManufacturers_SelectionChanged(object sender, EventArgs e)

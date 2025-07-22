@@ -48,6 +48,8 @@
             this.txtManufacturerDescription = new System.Windows.Forms.TextBox();
             this.btnSaveManufacturer = new System.Windows.Forms.Button();
             this.btnAddManufacturer = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabManufacturers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManufacturers)).BeginInit();
@@ -62,7 +64,7 @@
             this.tabControlMain.Controls.Add(this.tabManufacturers);
             this.tabControlMain.Controls.Add(this.tabAircrafts);
             this.tabControlMain.Controls.Add(this.tabStatus);
-            this.tabControlMain.Location = new System.Drawing.Point(169, 34);
+            this.tabControlMain.Location = new System.Drawing.Point(3, 2);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(696, 494);
@@ -71,6 +73,8 @@
             // 
             // tabManufacturers
             // 
+            this.tabManufacturers.Controls.Add(this.label2);
+            this.tabManufacturers.Controls.Add(this.label1);
             this.tabManufacturers.Controls.Add(this.btnAddManufacturer);
             this.tabManufacturers.Controls.Add(this.btnSaveManufacturer);
             this.tabManufacturers.Controls.Add(this.txtManufacturerDescription);
@@ -87,7 +91,7 @@
             // 
             // btnDeleteManufacturer
             // 
-            this.btnDeleteManufacturer.Location = new System.Drawing.Point(314, 313);
+            this.btnDeleteManufacturer.Location = new System.Drawing.Point(369, 356);
             this.btnDeleteManufacturer.Name = "btnDeleteManufacturer";
             this.btnDeleteManufacturer.Size = new System.Drawing.Size(158, 60);
             this.btnDeleteManufacturer.TabIndex = 3;
@@ -102,7 +106,7 @@
             this.dgvManufacturers.Name = "dgvManufacturers";
             this.dgvManufacturers.RowHeadersWidth = 51;
             this.dgvManufacturers.RowTemplate.Height = 24;
-            this.dgvManufacturers.Size = new System.Drawing.Size(561, 208);
+            this.dgvManufacturers.Size = new System.Drawing.Size(521, 208);
             this.dgvManufacturers.TabIndex = 0;
             this.dgvManufacturers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvManufacturers_CellContentClick);
             this.dgvManufacturers.SelectionChanged += new System.EventHandler(this.dgvManufacturers_SelectionChanged);
@@ -232,21 +236,21 @@
             // 
             // txtManufacturerName
             // 
-            this.txtManufacturerName.Location = new System.Drawing.Point(6, 233);
+            this.txtManufacturerName.Location = new System.Drawing.Point(19, 291);
             this.txtManufacturerName.Name = "txtManufacturerName";
-            this.txtManufacturerName.Size = new System.Drawing.Size(129, 22);
+            this.txtManufacturerName.Size = new System.Drawing.Size(179, 22);
             this.txtManufacturerName.TabIndex = 4;
             // 
             // txtManufacturerDescription
             // 
-            this.txtManufacturerDescription.Location = new System.Drawing.Point(6, 271);
+            this.txtManufacturerDescription.Location = new System.Drawing.Point(309, 291);
             this.txtManufacturerDescription.Name = "txtManufacturerDescription";
-            this.txtManufacturerDescription.Size = new System.Drawing.Size(129, 22);
+            this.txtManufacturerDescription.Size = new System.Drawing.Size(218, 22);
             this.txtManufacturerDescription.TabIndex = 5;
             // 
             // btnSaveManufacturer
             // 
-            this.btnSaveManufacturer.Location = new System.Drawing.Point(168, 313);
+            this.btnSaveManufacturer.Location = new System.Drawing.Point(196, 356);
             this.btnSaveManufacturer.Name = "btnSaveManufacturer";
             this.btnSaveManufacturer.Size = new System.Drawing.Size(140, 60);
             this.btnSaveManufacturer.TabIndex = 6;
@@ -256,7 +260,7 @@
             // 
             // btnAddManufacturer
             // 
-            this.btnAddManufacturer.Location = new System.Drawing.Point(7, 313);
+            this.btnAddManufacturer.Location = new System.Drawing.Point(6, 356);
             this.btnAddManufacturer.Name = "btnAddManufacturer";
             this.btnAddManufacturer.Size = new System.Drawing.Size(155, 60);
             this.btnAddManufacturer.TabIndex = 7;
@@ -264,11 +268,29 @@
             this.btnAddManufacturer.UseVisualStyleBackColor = true;
             this.btnAddManufacturer.Click += new System.EventHandler(this.btnAddManufacturer_Click_1);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(306, 263);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(221, 16);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Новое название производителя";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 263);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(182, 16);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Новое название самолёта";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(978, 540);
+            this.ClientSize = new System.Drawing.Size(703, 500);
             this.Controls.Add(this.tabControlMain);
             this.Name = "MainForm";
             this.Text = "Form1";
@@ -306,6 +328,8 @@
         private System.Windows.Forms.TextBox txtManufacturerDescription;
         private System.Windows.Forms.TextBox txtManufacturerName;
         private System.Windows.Forms.Button btnAddManufacturer;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 
