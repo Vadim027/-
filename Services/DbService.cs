@@ -162,6 +162,59 @@ namespace Управление_самолетами.Services
 
             return list;
         }
-        // Тут я потом добавлю еще Aircraft и AircraftStatus.
+
+        /// <summary>
+        /// Читаю статус
+        /// Записываю обновлённый статус
+        /// Enum.Parse переводит string из SQL в TurnDirection
+        public List<AircraftStatus> GetAircraftStatuses()
+        {
+            var list = new List<AircraftStatus>();
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("SELECT id, aircraft_id, flight_speed, altitude, climb_rate, turn_direction, turn_speed, gear FROM aircraft_status", conn);
+
+                using (var rdr = cmd.ExecuteReader())
+                {
+                    while (rdr.Read())
+                    {
+                        list.Add(new AircraftStatus
+                        {
+                            Id = rdr.GetInt32("id"),
+                            AircraftId = rdr.GetInt32("aircraft_id"),
+                            FlightSpeed = rdr.GetFloat("flight_speed"),
+                            Altitude = rdr.GetFloat("altitude"),
+                            ClimbRate = rdr.GetFloat("climb_rate"),
+                            TurnDirection = (TurnDirection)Enum.Parse(typeof(TurnDirection), rdr.GetString("turn_direction"), true),
+                            TurnSpeed = rdr.GetFloat("turn_speed"),
+                            Gear = rdr.GetBoolean("gear")
+                        });
+                    }
+                }
+            }
+            return list;
+        }
+
+        public void UpdateAircraftStatus(AircraftStatus status)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand(
+                    "UPDATE aircraft_status SET flight_speed=@fs, altitude=@al, climb_rate=@cr, turn_direction=@td, turn_speed=@ts, gear=@g WHERE id=@id",
+                    conn);
+
+                cmd.Parameters.AddWithValue("@fs", status.FlightSpeed);
+                cmd.Parameters.AddWithValue("@al", status.Altitude);
+                cmd.Parameters.AddWithValue("@cr", status.ClimbRate);
+                cmd.Parameters.AddWithValue("@td", status.TurnDirection.ToString().ToLower());
+                cmd.Parameters.AddWithValue("@ts", status.TurnSpeed);
+                cmd.Parameters.AddWithValue("@g", status.Gear);
+                cmd.Parameters.AddWithValue("@id", status.Id);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

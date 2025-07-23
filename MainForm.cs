@@ -33,6 +33,8 @@ namespace Управление_самолетами
             LoadManufacturers();
 
             LoadAircrafts();
+
+            LoadStatus();
         }
 
         private void LoadManufacturers()
@@ -55,25 +57,7 @@ namespace Управление_самолетами
 
         // === Оперативная информация ===
 
-        private void btnUpdateSpeed_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void btnUpdateAltitude_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnUpdateTurn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnUpdateGear_Click(object sender, EventArgs e)
-        {
-
-        }
 
         // === Производители ===
 
@@ -354,6 +338,131 @@ namespace Управление_самолетами
         private void dgvAircrafts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
+        }
+
+
+        // === Оперативная информация ===
+
+
+        private void LoadStatus()
+        {
+            dgvStatus.DataSource = null;
+            dgvStatus.DataSource = _db.GetAircraftStatuses();
+        }
+
+
+        /// <summary>
+        /// Кнопка обновления оперативной информации
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUpdateSpeed_Click_1(object sender, EventArgs e)
+        {
+            if (dgvStatus.CurrentRow == null) return;
+            var s = dgvStatus.CurrentRow.DataBoundItem as AircraftStatus;
+            if (s == null) return;
+
+            var input = Prompt.ShowDialog("Новая скорость:", "Обновить скорость");
+            if (float.TryParse(input, out float newSpeed))
+            {
+                s.FlightSpeed = newSpeed;
+                _db.UpdateAircraftStatus(s);
+                LoadStatus();
+            }
+        }
+
+
+
+        private void btnUpdateAltitude_Click(object sender, EventArgs e)
+        {
+            if (dgvStatus.CurrentRow == null) return;
+            var s = dgvStatus.CurrentRow.DataBoundItem as AircraftStatus;
+            if (s == null) return;
+
+            var altInput = Prompt.ShowDialog("Новая высота:", "Обновить высоту");
+            var crInput = Prompt.ShowDialog("Новая скорость набора:", "Обновить скорость набора");
+            if (float.TryParse(altInput, out float newAlt) && float.TryParse(crInput, out float newClimb))
+            {
+                s.Altitude = newAlt;
+                s.ClimbRate = newClimb;
+                _db.UpdateAircraftStatus(s);
+                LoadStatus();
+            }
+        }
+
+        private void btnUpdateTurn_Click(object sender, EventArgs e)
+        {
+            if (dgvStatus.CurrentRow == null) return;
+            var s = dgvStatus.CurrentRow.DataBoundItem as AircraftStatus;
+            if (s == null) return;
+
+            var dirInput = Prompt.ShowDialog("Направление (Straight, Left, Right):", "Обновить направление");
+            var tsInput = Prompt.ShowDialog("Скорость поворота:", "Обновить скорость поворота");
+            if (Enum.TryParse(dirInput, true, out TurnDirection newDir) && float.TryParse(tsInput, out float newTS))
+            {
+                s.TurnDirection = newDir;
+                s.TurnSpeed = newTS;
+                _db.UpdateAircraftStatus(s);
+                LoadStatus();
+            }
+        }
+
+        private void btnUpdateGear_Click(object sender, EventArgs e)
+        {
+            if (dgvStatus.CurrentRow == null) return;
+            var s = dgvStatus.CurrentRow.DataBoundItem as AircraftStatus;
+            if (s == null) return;
+
+            s.Gear = !s.Gear; // Переключаем шасси
+            _db.UpdateAircraftStatus(s);
+            LoadStatus();
+        }
+
+
+
+        private void btnPrintStatus_Click(object sender, EventArgs e)
+        {
+            if (dgvStatus.Rows.Count == 0)
+            {
+                MessageBox.Show("Нет данных для печати!");
+                return;
+            }
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("AircraftStatus");
+
+                worksheet.Cell(1, 1).Value = "ID";
+                worksheet.Cell(1, 2).Value = "Aircraft ID";
+                worksheet.Cell(1, 3).Value = "Скорость полёта";
+                worksheet.Cell(1, 4).Value = "Высота";
+                worksheet.Cell(1, 5).Value = "Скорость набора";
+                worksheet.Cell(1, 6).Value = "Направление";
+                worksheet.Cell(1, 7).Value = "Скорость поворота";
+                worksheet.Cell(1, 8).Value = "Шасси";
+
+                int row = 2;
+
+                foreach (DataGridViewRow dgRow in dgvStatus.Rows)
+                {
+                    if (dgRow.DataBoundItem is AircraftStatus s)
+                    {
+                        worksheet.Cell(row, 1).Value = s.Id;
+                        worksheet.Cell(row, 2).Value = s.AircraftId;
+                        worksheet.Cell(row, 3).Value = s.FlightSpeed;
+                        worksheet.Cell(row, 4).Value = s.Altitude;
+                        worksheet.Cell(row, 5).Value = s.ClimbRate;
+                        worksheet.Cell(row, 6).Value = s.TurnDirection.ToString();
+                        worksheet.Cell(row, 7).Value = s.TurnSpeed;
+                        worksheet.Cell(row, 8).Value = s.Gear ? "Выпущены" : "Убраны";
+                        row++;
+                    }
+                }
+
+                string fileName = Path.Combine(Application.StartupPath, "AircraftStatus.xlsx");
+                workbook.SaveAs(fileName);
+
+                Process.Start("explorer.exe", $"/select,\"{fileName}\"");
+            }
         }
     }
 }

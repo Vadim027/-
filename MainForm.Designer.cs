@@ -57,6 +57,7 @@ namespace Управление_самолетами
             this.btnUpdateAltitude = new System.Windows.Forms.Button();
             this.btnUpdateSpeed = new System.Windows.Forms.Button();
             this.dgvStatus = new System.Windows.Forms.DataGridView();
+            this.btnPrintStatus = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabManufacturers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManufacturers)).BeginInit();
@@ -74,7 +75,7 @@ namespace Управление_самолетами
             this.tabControlMain.Location = new System.Drawing.Point(3, 2);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(696, 494);
+            this.tabControlMain.Size = new System.Drawing.Size(866, 466);
             this.tabControlMain.TabIndex = 0;
             this.tabControlMain.Tag = "";
             // 
@@ -282,6 +283,7 @@ namespace Управление_самолетами
             // 
             // tabStatus
             // 
+            this.tabStatus.Controls.Add(this.btnPrintStatus);
             this.tabStatus.Controls.Add(this.btnUpdateGear);
             this.tabStatus.Controls.Add(this.btnUpdateTurn);
             this.tabStatus.Controls.Add(this.btnUpdateAltitude);
@@ -290,7 +292,7 @@ namespace Управление_самолетами
             this.tabStatus.Location = new System.Drawing.Point(4, 25);
             this.tabStatus.Name = "tabStatus";
             this.tabStatus.Padding = new System.Windows.Forms.Padding(3);
-            this.tabStatus.Size = new System.Drawing.Size(688, 465);
+            this.tabStatus.Size = new System.Drawing.Size(858, 437);
             this.tabStatus.TabIndex = 2;
             this.tabStatus.Text = "Оперативная информация";
             this.tabStatus.UseVisualStyleBackColor = true;
@@ -299,10 +301,11 @@ namespace Управление_самолетами
             // 
             this.btnUpdateGear.Location = new System.Drawing.Point(398, 206);
             this.btnUpdateGear.Name = "btnUpdateGear";
-            this.btnUpdateGear.Size = new System.Drawing.Size(124, 87);
+            this.btnUpdateGear.Size = new System.Drawing.Size(142, 87);
             this.btnUpdateGear.TabIndex = 4;
             this.btnUpdateGear.Text = "Изменить выпуск шасси";
             this.btnUpdateGear.UseVisualStyleBackColor = true;
+            this.btnUpdateGear.Click += new System.EventHandler(this.btnUpdateGear_Click);
             // 
             // btnUpdateTurn
             // 
@@ -312,6 +315,7 @@ namespace Управление_самолетами
             this.btnUpdateTurn.TabIndex = 3;
             this.btnUpdateTurn.Text = "Изменить поворот/скорость поворота";
             this.btnUpdateTurn.UseVisualStyleBackColor = true;
+            this.btnUpdateTurn.Click += new System.EventHandler(this.btnUpdateTurn_Click);
             // 
             // btnUpdateAltitude
             // 
@@ -321,6 +325,7 @@ namespace Управление_самолетами
             this.btnUpdateAltitude.TabIndex = 2;
             this.btnUpdateAltitude.Text = "Изменить высоту и скорость набора";
             this.btnUpdateAltitude.UseVisualStyleBackColor = true;
+            this.btnUpdateAltitude.Click += new System.EventHandler(this.btnUpdateAltitude_Click);
             // 
             // btnUpdateSpeed
             // 
@@ -330,6 +335,7 @@ namespace Управление_самолетами
             this.btnUpdateSpeed.TabIndex = 1;
             this.btnUpdateSpeed.Text = "Изменить скорость";
             this.btnUpdateSpeed.UseVisualStyleBackColor = true;
+            this.btnUpdateSpeed.Click += new System.EventHandler(this.btnUpdateSpeed_Click_1);
             // 
             // dgvStatus
             // 
@@ -338,14 +344,24 @@ namespace Управление_самолетами
             this.dgvStatus.Name = "dgvStatus";
             this.dgvStatus.RowHeadersWidth = 51;
             this.dgvStatus.RowTemplate.Height = 24;
-            this.dgvStatus.Size = new System.Drawing.Size(516, 194);
+            this.dgvStatus.Size = new System.Drawing.Size(846, 194);
             this.dgvStatus.TabIndex = 0;
+            // 
+            // btnPrintStatus
+            // 
+            this.btnPrintStatus.Location = new System.Drawing.Point(546, 206);
+            this.btnPrintStatus.Name = "btnPrintStatus";
+            this.btnPrintStatus.Size = new System.Drawing.Size(136, 87);
+            this.btnPrintStatus.TabIndex = 5;
+            this.btnPrintStatus.Text = "Печать";
+            this.btnPrintStatus.UseVisualStyleBackColor = true;
+            this.btnPrintStatus.Click += new System.EventHandler(this.btnPrintStatus_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(807, 500);
+            this.ClientSize = new System.Drawing.Size(866, 500);
             this.Controls.Add(this.tabControlMain);
             this.Name = "MainForm";
             this.Text = "Form1";
@@ -391,6 +407,7 @@ namespace Управление_самолетами
         private System.Windows.Forms.TextBox txtAircraftDescription;
         private System.Windows.Forms.TextBox txtAircraftName;
         private System.Windows.Forms.TextBox txtSerialNumber;
+        private System.Windows.Forms.Button btnPrintStatus;
     }
 }
 
