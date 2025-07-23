@@ -37,6 +37,11 @@ namespace Управление_самолетами
             LoadStatus();
         }
 
+
+        /// <summary>
+        /// Загружает список производителей и привязывает к таблице.
+        /// </summary>
+
         private void LoadManufacturers()
         {
             dgvManufacturers.DataSource = null;
@@ -46,6 +51,10 @@ namespace Управление_самолетами
 
         // === Самолёты ===
 
+
+        /// <summary>
+        /// Загружает список самолётов и производителей для ComboBox.
+        /// </summary>
         private void LoadAircrafts()
         {
             dgvAircrafts.DataSource = null;
@@ -55,13 +64,18 @@ namespace Управление_самолетами
             cbManufacturer.ValueMember = "Id";
         }
 
-        // === Оперативная информация ===
-
 
 
         // === Производители ===
 
 
+
+        /// <summary>
+        /// Обрабатывает выбор строки в таблице производителей.
+        /// Заполняет текстовые поля данными выбранного производителя.
+        /// </summary>
+        /// <param name="sender">Источник события</param>
+        /// <param name="e">Аргументы события</param>
         private void dgvManufacturers_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvManufacturers.CurrentRow == null)
@@ -77,6 +91,10 @@ namespace Управление_самолетами
             txtManufacturerName.Text = row.Name;
             txtManufacturerDescription.Text = row.Description;
         }
+
+        /// <summary>
+        /// Добавляет нового производителя или обновляет выбранного.
+        /// </summary>
 
         private void btnSaveManufacturer_Click(object sender, EventArgs e)
         {
@@ -140,6 +158,11 @@ namespace Управление_самолетами
             }
         }
 
+
+        /// <summary>
+        /// Очищает поля для добавления нового производителя.
+        /// </summary>
+
         private void btnAddManufacturer_Click_1(object sender, EventArgs e)
         {
             txtManufacturerName.Clear();
@@ -153,6 +176,13 @@ namespace Управление_самолетами
         {
 
         }
+
+
+        /// <summary>
+        /// Экспортирует список производителей в Excel.
+        /// </summary>
+        /// <param name="sender">Источник события</param>
+        /// <param name="e">Аргументы события</param>
 
         private void btnPrintManufacturers_Click(object sender, EventArgs e)
         {
@@ -186,17 +216,19 @@ namespace Управление_самолетами
                 string fileName = Path.Combine(Application.StartupPath, "Manufacturers.xlsx");
                 workbook.SaveAs(fileName);
 
-                // Откроем папку и выделим файл
+                // Открываю папку и выделяю файл
                 Process.Start("explorer.exe", $"/select,\"{fileName}\"");
             }
-
-            /// <summary>
-            ///Функция кнопки Печать
         }
 
 
         // === Самолёты ===
 
+
+        /// <summary>
+        /// Обрабатывает выбор строки в таблице самолётов.
+        /// Заполняет поля данными выбранного самолёта.
+        /// </summary>
 
         private void dgvAircrafts_SelectionChanged(object sender, EventArgs e)
         {
@@ -343,7 +375,9 @@ namespace Управление_самолетами
 
         // === Оперативная информация ===
 
-
+        /// <summary>
+        /// Загружает оперативную информацию по самолётам.
+        /// </summary>
         private void LoadStatus()
         {
             dgvStatus.DataSource = null;
@@ -352,9 +386,8 @@ namespace Управление_самолетами
 
 
         /// <summary>
-        /// Кнопка обновления оперативной информации
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// Обновляет скорость полёта.
+        /// </summary>
         private void btnUpdateSpeed_Click_1(object sender, EventArgs e)
         {
             if (dgvStatus.CurrentRow == null) return;
@@ -389,6 +422,11 @@ namespace Управление_самолетами
             }
         }
 
+
+        /// <summary>
+        /// Обновляет направление и скорость поворота.
+        /// </summary>
+
         private void btnUpdateTurn_Click(object sender, EventArgs e)
         {
             if (dgvStatus.CurrentRow == null) return;
@@ -406,6 +444,11 @@ namespace Управление_самолетами
             }
         }
 
+
+        /// <summary>
+        /// Переключает состояние шасси.
+        /// </summary>
+
         private void btnUpdateGear_Click(object sender, EventArgs e)
         {
             if (dgvStatus.CurrentRow == null) return;
@@ -416,7 +459,6 @@ namespace Управление_самолетами
             _db.UpdateAircraftStatus(s);
             LoadStatus();
         }
-
 
 
         private void btnPrintStatus_Click(object sender, EventArgs e)
