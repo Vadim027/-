@@ -42,9 +42,13 @@ namespace Управление_самолетами
             this.btnDeleteManufacturer = new System.Windows.Forms.Button();
             this.dgvManufacturers = new System.Windows.Forms.DataGridView();
             this.tabAircrafts = new System.Windows.Forms.TabPage();
-            this.btnPrintAircraft = new System.Windows.Forms.Button();
+            this.cbManufacturer = new System.Windows.Forms.ComboBox();
+            this.txtAircraftDescription = new System.Windows.Forms.TextBox();
+            this.txtAircraftName = new System.Windows.Forms.TextBox();
+            this.txtSerialNumber = new System.Windows.Forms.TextBox();
+            this.btnPrintAircrafts = new System.Windows.Forms.Button();
             this.btnDeleteAircraft = new System.Windows.Forms.Button();
-            this.btnEditAircraft = new System.Windows.Forms.Button();
+            this.btnSaveAircraft = new System.Windows.Forms.Button();
             this.btnAddAircraft = new System.Windows.Forms.Button();
             this.dgvAircrafts = new System.Windows.Forms.DataGridView();
             this.tabStatus = new System.Windows.Forms.TabPage();
@@ -115,7 +119,7 @@ namespace Управление_самолетами
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(306, 263);
+            this.label1.Location = new System.Drawing.Point(253, 263);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(221, 16);
             this.label1.TabIndex = 8;
@@ -143,7 +147,7 @@ namespace Управление_самолетами
             // 
             // txtManufacturerDescription
             // 
-            this.txtManufacturerDescription.Location = new System.Drawing.Point(309, 291);
+            this.txtManufacturerDescription.Location = new System.Drawing.Point(256, 291);
             this.txtManufacturerDescription.Name = "txtManufacturerDescription";
             this.txtManufacturerDescription.Size = new System.Drawing.Size(218, 22);
             this.txtManufacturerDescription.TabIndex = 5;
@@ -172,16 +176,20 @@ namespace Управление_самолетами
             this.dgvManufacturers.Name = "dgvManufacturers";
             this.dgvManufacturers.RowHeadersWidth = 51;
             this.dgvManufacturers.RowTemplate.Height = 24;
-            this.dgvManufacturers.Size = new System.Drawing.Size(521, 208);
+            this.dgvManufacturers.Size = new System.Drawing.Size(676, 208);
             this.dgvManufacturers.TabIndex = 0;
             this.dgvManufacturers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvManufacturers_CellContentClick);
             this.dgvManufacturers.SelectionChanged += new System.EventHandler(this.dgvManufacturers_SelectionChanged);
             // 
             // tabAircrafts
             // 
-            this.tabAircrafts.Controls.Add(this.btnPrintAircraft);
+            this.tabAircrafts.Controls.Add(this.cbManufacturer);
+            this.tabAircrafts.Controls.Add(this.txtAircraftDescription);
+            this.tabAircrafts.Controls.Add(this.txtAircraftName);
+            this.tabAircrafts.Controls.Add(this.txtSerialNumber);
+            this.tabAircrafts.Controls.Add(this.btnPrintAircrafts);
             this.tabAircrafts.Controls.Add(this.btnDeleteAircraft);
-            this.tabAircrafts.Controls.Add(this.btnEditAircraft);
+            this.tabAircrafts.Controls.Add(this.btnSaveAircraft);
             this.tabAircrafts.Controls.Add(this.btnAddAircraft);
             this.tabAircrafts.Controls.Add(this.dgvAircrafts);
             this.tabAircrafts.Location = new System.Drawing.Point(4, 25);
@@ -192,42 +200,74 @@ namespace Управление_самолетами
             this.tabAircrafts.Text = "Самолёты";
             this.tabAircrafts.UseVisualStyleBackColor = true;
             // 
-            // btnPrintAircraft
+            // cbManufacturer
             // 
-            this.btnPrintAircraft.Location = new System.Drawing.Point(422, 219);
-            this.btnPrintAircraft.Name = "btnPrintAircraft";
-            this.btnPrintAircraft.Size = new System.Drawing.Size(100, 74);
-            this.btnPrintAircraft.TabIndex = 4;
-            this.btnPrintAircraft.Text = "Печать";
-            this.btnPrintAircraft.UseVisualStyleBackColor = true;
-            this.btnPrintAircraft.Click += new System.EventHandler(this.btnPrintAircraft_Click);
+            this.cbManufacturer.FormattingEnabled = true;
+            this.cbManufacturer.Location = new System.Drawing.Point(401, 259);
+            this.cbManufacturer.Name = "cbManufacturer";
+            this.cbManufacturer.Size = new System.Drawing.Size(121, 24);
+            this.cbManufacturer.TabIndex = 8;
+            // 
+            // txtAircraftDescription
+            // 
+            this.txtAircraftDescription.Location = new System.Drawing.Point(261, 259);
+            this.txtAircraftDescription.Name = "txtAircraftDescription";
+            this.txtAircraftDescription.Size = new System.Drawing.Size(100, 22);
+            this.txtAircraftDescription.TabIndex = 7;
+            // 
+            // txtAircraftName
+            // 
+            this.txtAircraftName.Location = new System.Drawing.Point(126, 259);
+            this.txtAircraftName.Name = "txtAircraftName";
+            this.txtAircraftName.Size = new System.Drawing.Size(100, 22);
+            this.txtAircraftName.TabIndex = 6;
+            // 
+            // txtSerialNumber
+            // 
+            this.txtSerialNumber.Location = new System.Drawing.Point(6, 259);
+            this.txtSerialNumber.Name = "txtSerialNumber";
+            this.txtSerialNumber.Size = new System.Drawing.Size(100, 22);
+            this.txtSerialNumber.TabIndex = 5;
+            // 
+            // btnPrintAircrafts
+            // 
+            this.btnPrintAircrafts.Location = new System.Drawing.Point(461, 374);
+            this.btnPrintAircrafts.Name = "btnPrintAircrafts";
+            this.btnPrintAircrafts.Size = new System.Drawing.Size(100, 74);
+            this.btnPrintAircrafts.TabIndex = 4;
+            this.btnPrintAircrafts.Text = "Печать";
+            this.btnPrintAircrafts.UseVisualStyleBackColor = true;
+            this.btnPrintAircrafts.Click += new System.EventHandler(this.btnPrintAircrafts_Click);
             // 
             // btnDeleteAircraft
             // 
-            this.btnDeleteAircraft.Location = new System.Drawing.Point(285, 219);
+            this.btnDeleteAircraft.Location = new System.Drawing.Point(309, 374);
             this.btnDeleteAircraft.Name = "btnDeleteAircraft";
             this.btnDeleteAircraft.Size = new System.Drawing.Size(131, 74);
             this.btnDeleteAircraft.TabIndex = 3;
             this.btnDeleteAircraft.Text = "Удалить";
             this.btnDeleteAircraft.UseVisualStyleBackColor = true;
+            this.btnDeleteAircraft.Click += new System.EventHandler(this.btnDeleteAircraft_Click_1);
             // 
-            // btnEditAircraft
+            // btnSaveAircraft
             // 
-            this.btnEditAircraft.Location = new System.Drawing.Point(146, 219);
-            this.btnEditAircraft.Name = "btnEditAircraft";
-            this.btnEditAircraft.Size = new System.Drawing.Size(133, 74);
-            this.btnEditAircraft.TabIndex = 2;
-            this.btnEditAircraft.Text = "Изменить";
-            this.btnEditAircraft.UseVisualStyleBackColor = true;
+            this.btnSaveAircraft.Location = new System.Drawing.Point(156, 374);
+            this.btnSaveAircraft.Name = "btnSaveAircraft";
+            this.btnSaveAircraft.Size = new System.Drawing.Size(133, 74);
+            this.btnSaveAircraft.TabIndex = 2;
+            this.btnSaveAircraft.Text = "Сохранить";
+            this.btnSaveAircraft.UseVisualStyleBackColor = true;
+            this.btnSaveAircraft.Click += new System.EventHandler(this.btnSaveAircraft_Click_1);
             // 
             // btnAddAircraft
             // 
-            this.btnAddAircraft.Location = new System.Drawing.Point(6, 219);
+            this.btnAddAircraft.Location = new System.Drawing.Point(6, 374);
             this.btnAddAircraft.Name = "btnAddAircraft";
             this.btnAddAircraft.Size = new System.Drawing.Size(134, 74);
             this.btnAddAircraft.TabIndex = 1;
             this.btnAddAircraft.Text = "Добавить";
             this.btnAddAircraft.UseVisualStyleBackColor = true;
+            this.btnAddAircraft.Click += new System.EventHandler(this.btnAddAircraft_Click_1);
             // 
             // dgvAircrafts
             // 
@@ -236,8 +276,9 @@ namespace Управление_самолетами
             this.dgvAircrafts.Name = "dgvAircrafts";
             this.dgvAircrafts.RowHeadersWidth = 51;
             this.dgvAircrafts.RowTemplate.Height = 24;
-            this.dgvAircrafts.Size = new System.Drawing.Size(516, 207);
+            this.dgvAircrafts.Size = new System.Drawing.Size(676, 207);
             this.dgvAircrafts.TabIndex = 0;
+            this.dgvAircrafts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAircrafts_CellContentClick);
             // 
             // tabStatus
             // 
@@ -304,7 +345,7 @@ namespace Управление_самолетами
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(703, 500);
+            this.ClientSize = new System.Drawing.Size(807, 500);
             this.Controls.Add(this.tabControlMain);
             this.Name = "MainForm";
             this.Text = "Form1";
@@ -313,6 +354,7 @@ namespace Управление_самолетами
             this.tabManufacturers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManufacturers)).EndInit();
             this.tabAircrafts.ResumeLayout(false);
+            this.tabAircrafts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAircrafts)).EndInit();
             this.tabStatus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatus)).EndInit();
@@ -329,9 +371,9 @@ namespace Управление_самолетами
         private System.Windows.Forms.DataGridView dgvManufacturers;
         private System.Windows.Forms.Button btnDeleteManufacturer;
         private System.Windows.Forms.DataGridView dgvAircrafts;
-        private System.Windows.Forms.Button btnPrintAircraft;
+        private System.Windows.Forms.Button btnPrintAircrafts;
         private System.Windows.Forms.Button btnDeleteAircraft;
-        private System.Windows.Forms.Button btnEditAircraft;
+        private System.Windows.Forms.Button btnSaveAircraft;
         private System.Windows.Forms.Button btnAddAircraft;
         private System.Windows.Forms.DataGridView dgvStatus;
         private System.Windows.Forms.Button btnUpdateTurn;
@@ -345,6 +387,10 @@ namespace Управление_самолетами
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnPrintManufacturers;
+        private System.Windows.Forms.ComboBox cbManufacturer;
+        private System.Windows.Forms.TextBox txtAircraftDescription;
+        private System.Windows.Forms.TextBox txtAircraftName;
+        private System.Windows.Forms.TextBox txtSerialNumber;
     }
 }
 

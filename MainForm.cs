@@ -31,6 +31,8 @@ namespace Управление_самолетами
             _net = net;
 
             LoadManufacturers();
+
+            LoadAircrafts();
         }
 
         private void LoadManufacturers()
@@ -42,46 +44,35 @@ namespace Управление_самолетами
 
         // === Самолёты ===
 
-        private void btnAddAircraft_Click(object sender, EventArgs e)
+        private void LoadAircrafts()
         {
-            
-        }
-
-        private void btnEditAircraft_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnDeleteAircraft_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnPrintAircraft_Click(object sender, EventArgs e)
-        {
-            
+            dgvAircrafts.DataSource = null;
+            dgvAircrafts.DataSource = _db.GetAircrafts();
+            cbManufacturer.DataSource = _db.GetManufacturers();
+            cbManufacturer.DisplayMember = "Name";
+            cbManufacturer.ValueMember = "Id";
         }
 
         // === Оперативная информация ===
 
         private void btnUpdateSpeed_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnUpdateAltitude_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnUpdateTurn_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnUpdateGear_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         // === Производители ===
@@ -219,5 +210,150 @@ namespace Управление_самолетами
             ///Функция кнопки Печать
         }
 
+
+        // === Самолёты ===
+
+
+        private void dgvAircrafts_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvAircrafts.CurrentRow == null)
+            {
+                txtSerialNumber.Clear();
+                txtAircraftName.Clear();
+                txtAircraftDescription.Clear();
+                cbManufacturer.SelectedIndex = -1;
+                return;
+            }
+
+            var row = dgvAircrafts.CurrentRow.DataBoundItem as Aircraft;
+            if (row == null) return;
+
+            txtSerialNumber.Text = row.SerialNumber;
+            txtAircraftName.Text = row.Name;
+            txtAircraftDescription.Text = row.Description;
+            cbManufacturer.SelectedValue = row.ManufacturerId;
+        }
+
+        private void btnAddAircraft_Click_1(object sender, EventArgs e)
+        {
+            txtSerialNumber.Clear();
+            txtAircraftName.Clear();
+            txtAircraftDescription.Clear();
+            cbManufacturer.SelectedIndex = -1;
+            dgvAircrafts.ClearSelection();
+        }
+
+        private void btnSaveAircraft_Click_1(object sender, EventArgs e)
+        {
+            var sn = txtSerialNumber.Text.Trim();
+            var name = txtAircraftName.Text.Trim();
+            var desc = txtAircraftDescription.Text.Trim();
+
+            if (cbManufacturer.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите производителя!");
+                return;
+            }
+
+            var mId = (int)cbManufacturer.SelectedValue;
+
+            if (string.IsNullOrWhiteSpace(sn) || string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Введите серийный номер и имя самолёта!");
+                return;
+            }
+
+            if (dgvAircrafts.SelectedRows.Count == 0)
+            {
+                _db.AddAircraft(sn, name, desc, mId);
+                MessageBox.Show("Самолёт добавлен!");
+            }
+            else
+            {
+                var selected = dgvAircrafts.CurrentRow?.DataBoundItem as Aircraft;
+                if (selected != null)
+                {
+                    _db.UpdateAircraft(selected.Id, sn, name, desc, mId);
+                    MessageBox.Show("Самолёт обновлён!");
+                }
+            }
+
+            LoadAircrafts();
+            txtSerialNumber.Clear();
+            txtAircraftName.Clear();
+            txtAircraftDescription.Clear();
+            cbManufacturer.SelectedIndex = -1;
+            dgvAircrafts.ClearSelection();
+        }
+
+        private void btnDeleteAircraft_Click_1(object sender, EventArgs e)
+        {
+            if (dgvAircrafts.CurrentRow == null)
+            {
+                MessageBox.Show("Выберите самолёт для удаления!");
+                return;
+            }
+
+            var row = dgvAircrafts.CurrentRow.DataBoundItem as Aircraft;
+            if (row == null) return;
+
+            var confirm = MessageBox.Show($"Удалить самолёт {row.Name}?", "Подтвердите", MessageBoxButtons.YesNo);
+            if (confirm == DialogResult.Yes)
+            {
+                _db.DeleteAircraft(row.Id);
+                MessageBox.Show("Самолёт удалён!");
+                LoadAircrafts();
+                txtSerialNumber.Clear();
+                txtAircraftName.Clear();
+                txtAircraftDescription.Clear();
+                cbManufacturer.SelectedIndex = -1;
+                dgvAircrafts.ClearSelection();
+            }
+        }
+
+        private void btnPrintAircrafts_Click(object sender, EventArgs e)
+        {
+            if (dgvAircrafts.Rows.Count == 0)
+            {
+                MessageBox.Show("Нет данных для печати!");
+                return;
+            }
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Aircrafts");
+
+                worksheet.Cell(1, 1).Value = "ID";
+                worksheet.Cell(1, 2).Value = "Серийный номер";
+                worksheet.Cell(1, 3).Value = "Название";
+                worksheet.Cell(1, 4).Value = "Описание";
+                worksheet.Cell(1, 5).Value = "Производитель ID";
+
+                int row = 2;
+
+                foreach (DataGridViewRow dgRow in dgvAircrafts.Rows)
+                {
+                    if (dgRow.DataBoundItem is Aircraft ac)
+                    {
+                        worksheet.Cell(row, 1).Value = ac.Id;
+                        worksheet.Cell(row, 2).Value = ac.SerialNumber;
+                        worksheet.Cell(row, 3).Value = ac.Name;
+                        worksheet.Cell(row, 4).Value = ac.Description;
+                        worksheet.Cell(row, 5).Value = ac.ManufacturerId;
+                        row++;
+                    }
+                }
+
+                string fileName = Path.Combine(Application.StartupPath, "Aircrafts.xlsx");
+                workbook.SaveAs(fileName);
+
+                Process.Start("explorer.exe", $"/select,\"{fileName}\"");
+            }
+        }
+
+        private void dgvAircrafts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
     }
 }
