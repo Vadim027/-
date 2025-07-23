@@ -1,4 +1,6 @@
-﻿namespace Управление_самолетами
+﻿using System;
+
+namespace Управление_самолетами
 {
     partial class MainForm
     {
@@ -30,6 +32,13 @@
         {
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabManufacturers = new System.Windows.Forms.TabPage();
+            this.btnPrintManufacturers = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnAddManufacturer = new System.Windows.Forms.Button();
+            this.btnSaveManufacturer = new System.Windows.Forms.Button();
+            this.txtManufacturerDescription = new System.Windows.Forms.TextBox();
+            this.txtManufacturerName = new System.Windows.Forms.TextBox();
             this.btnDeleteManufacturer = new System.Windows.Forms.Button();
             this.dgvManufacturers = new System.Windows.Forms.DataGridView();
             this.tabAircrafts = new System.Windows.Forms.TabPage();
@@ -44,12 +53,6 @@
             this.btnUpdateAltitude = new System.Windows.Forms.Button();
             this.btnUpdateSpeed = new System.Windows.Forms.Button();
             this.dgvStatus = new System.Windows.Forms.DataGridView();
-            this.txtManufacturerName = new System.Windows.Forms.TextBox();
-            this.txtManufacturerDescription = new System.Windows.Forms.TextBox();
-            this.btnSaveManufacturer = new System.Windows.Forms.Button();
-            this.btnAddManufacturer = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabManufacturers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManufacturers)).BeginInit();
@@ -73,6 +76,7 @@
             // 
             // tabManufacturers
             // 
+            this.tabManufacturers.Controls.Add(this.btnPrintManufacturers);
             this.tabManufacturers.Controls.Add(this.label2);
             this.tabManufacturers.Controls.Add(this.label1);
             this.tabManufacturers.Controls.Add(this.btnAddManufacturer);
@@ -89,11 +93,73 @@
             this.tabManufacturers.Text = "Производители";
             this.tabManufacturers.UseVisualStyleBackColor = true;
             // 
+            // btnPrintManufacturers
+            // 
+            this.btnPrintManufacturers.Location = new System.Drawing.Point(380, 356);
+            this.btnPrintManufacturers.Name = "btnPrintManufacturers";
+            this.btnPrintManufacturers.Size = new System.Drawing.Size(147, 60);
+            this.btnPrintManufacturers.TabIndex = 10;
+            this.btnPrintManufacturers.Text = "Печать";
+            this.btnPrintManufacturers.UseVisualStyleBackColor = true;
+            this.btnPrintManufacturers.Click += new System.EventHandler(this.btnPrintManufacturers_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 263);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(182, 16);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Новое название самолёта";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(306, 263);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(221, 16);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Новое название производителя";
+            // 
+            // btnAddManufacturer
+            // 
+            this.btnAddManufacturer.Location = new System.Drawing.Point(19, 356);
+            this.btnAddManufacturer.Name = "btnAddManufacturer";
+            this.btnAddManufacturer.Size = new System.Drawing.Size(113, 60);
+            this.btnAddManufacturer.TabIndex = 7;
+            this.btnAddManufacturer.Text = "Добавить";
+            this.btnAddManufacturer.UseVisualStyleBackColor = true;
+            this.btnAddManufacturer.Click += new System.EventHandler(this.btnAddManufacturer_Click_1);
+            // 
+            // btnSaveManufacturer
+            // 
+            this.btnSaveManufacturer.Location = new System.Drawing.Point(133, 356);
+            this.btnSaveManufacturer.Name = "btnSaveManufacturer";
+            this.btnSaveManufacturer.Size = new System.Drawing.Size(117, 60);
+            this.btnSaveManufacturer.TabIndex = 6;
+            this.btnSaveManufacturer.Text = "Сохранить";
+            this.btnSaveManufacturer.UseVisualStyleBackColor = true;
+            this.btnSaveManufacturer.Click += new System.EventHandler(this.btnSaveManufacturer_Click);
+            // 
+            // txtManufacturerDescription
+            // 
+            this.txtManufacturerDescription.Location = new System.Drawing.Point(309, 291);
+            this.txtManufacturerDescription.Name = "txtManufacturerDescription";
+            this.txtManufacturerDescription.Size = new System.Drawing.Size(218, 22);
+            this.txtManufacturerDescription.TabIndex = 5;
+            // 
+            // txtManufacturerName
+            // 
+            this.txtManufacturerName.Location = new System.Drawing.Point(19, 291);
+            this.txtManufacturerName.Name = "txtManufacturerName";
+            this.txtManufacturerName.Size = new System.Drawing.Size(179, 22);
+            this.txtManufacturerName.TabIndex = 4;
+            // 
             // btnDeleteManufacturer
             // 
-            this.btnDeleteManufacturer.Location = new System.Drawing.Point(369, 356);
+            this.btnDeleteManufacturer.Location = new System.Drawing.Point(256, 356);
             this.btnDeleteManufacturer.Name = "btnDeleteManufacturer";
-            this.btnDeleteManufacturer.Size = new System.Drawing.Size(158, 60);
+            this.btnDeleteManufacturer.Size = new System.Drawing.Size(118, 60);
             this.btnDeleteManufacturer.TabIndex = 3;
             this.btnDeleteManufacturer.Text = "Удалить";
             this.btnDeleteManufacturer.UseVisualStyleBackColor = true;
@@ -183,7 +249,7 @@
             this.tabStatus.Location = new System.Drawing.Point(4, 25);
             this.tabStatus.Name = "tabStatus";
             this.tabStatus.Padding = new System.Windows.Forms.Padding(3);
-            this.tabStatus.Size = new System.Drawing.Size(528, 299);
+            this.tabStatus.Size = new System.Drawing.Size(688, 465);
             this.tabStatus.TabIndex = 2;
             this.tabStatus.Text = "Оперативная информация";
             this.tabStatus.UseVisualStyleBackColor = true;
@@ -234,58 +300,6 @@
             this.dgvStatus.Size = new System.Drawing.Size(516, 194);
             this.dgvStatus.TabIndex = 0;
             // 
-            // txtManufacturerName
-            // 
-            this.txtManufacturerName.Location = new System.Drawing.Point(19, 291);
-            this.txtManufacturerName.Name = "txtManufacturerName";
-            this.txtManufacturerName.Size = new System.Drawing.Size(179, 22);
-            this.txtManufacturerName.TabIndex = 4;
-            // 
-            // txtManufacturerDescription
-            // 
-            this.txtManufacturerDescription.Location = new System.Drawing.Point(309, 291);
-            this.txtManufacturerDescription.Name = "txtManufacturerDescription";
-            this.txtManufacturerDescription.Size = new System.Drawing.Size(218, 22);
-            this.txtManufacturerDescription.TabIndex = 5;
-            // 
-            // btnSaveManufacturer
-            // 
-            this.btnSaveManufacturer.Location = new System.Drawing.Point(196, 356);
-            this.btnSaveManufacturer.Name = "btnSaveManufacturer";
-            this.btnSaveManufacturer.Size = new System.Drawing.Size(140, 60);
-            this.btnSaveManufacturer.TabIndex = 6;
-            this.btnSaveManufacturer.Text = "Сохранить";
-            this.btnSaveManufacturer.UseVisualStyleBackColor = true;
-            this.btnSaveManufacturer.Click += new System.EventHandler(this.btnSaveManufacturer_Click);
-            // 
-            // btnAddManufacturer
-            // 
-            this.btnAddManufacturer.Location = new System.Drawing.Point(6, 356);
-            this.btnAddManufacturer.Name = "btnAddManufacturer";
-            this.btnAddManufacturer.Size = new System.Drawing.Size(155, 60);
-            this.btnAddManufacturer.TabIndex = 7;
-            this.btnAddManufacturer.Text = "Добавить";
-            this.btnAddManufacturer.UseVisualStyleBackColor = true;
-            this.btnAddManufacturer.Click += new System.EventHandler(this.btnAddManufacturer_Click_1);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(306, 263);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 16);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Новое название производителя";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 263);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(182, 16);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Новое название самолёта";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -330,6 +344,7 @@
         private System.Windows.Forms.Button btnAddManufacturer;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnPrintManufacturers;
     }
 }
 

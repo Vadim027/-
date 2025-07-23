@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Управление_самолетами.Models;
 
+
 namespace Управление_самолетами.Services
 {
     public class DbService
@@ -88,6 +89,78 @@ namespace Управление_самолетами.Services
                 var count = Convert.ToInt32(cmd.ExecuteScalar());
                 return count == 0;
             }
+        }
+
+        // Добавить самолёт
+        public void AddAircraft(string sn, string name, string desc, int mId)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("INSERT INTO aircraft (serial_number, name, description, manufacturer_id) VALUES (@sn, @n, @d, @m)", conn);
+                cmd.Parameters.AddWithValue("@sn", sn);
+                cmd.Parameters.AddWithValue("@n", name);
+                cmd.Parameters.AddWithValue("@d", desc);
+                cmd.Parameters.AddWithValue("@m", mId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // Обновить самолёт
+        public void UpdateAircraft(int id, string sn, string name, string desc, int mId)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("UPDATE aircraft SET serial_number = @sn, name = @n, description = @d, manufacturer_id = @m WHERE id = @id", conn);
+                cmd.Parameters.AddWithValue("@sn", sn);
+                cmd.Parameters.AddWithValue("@n", name);
+                cmd.Parameters.AddWithValue("@d", desc);
+                cmd.Parameters.AddWithValue("@m", mId);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // Удалить самолёт
+        public void DeleteAircraft(int id)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("DELETE FROM aircraft WHERE id = @id", conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // Получить все самолёты
+        public List<Aircraft> GetAircrafts()
+        {
+            var list = new List<Aircraft>();
+
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("SELECT id, serial_number, name, description, manufacturer_id FROM aircraft", conn);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Aircraft
+                        {
+                            Id = reader.GetInt32("id"),
+                            SerialNumber = reader.GetString("serial_number"),
+                            Name = reader.GetString("name"),
+                            Description = reader.IsDBNull(reader.GetOrdinal("description")) ? "" : reader.GetString("description"),
+                            ManufacturerId = reader.GetInt32("manufacturer_id")
+                        });
+                    }
+                }
+            }
+
+            return list;
         }
         // Тут я потом добавлю еще Aircraft и AircraftStatus.
     }

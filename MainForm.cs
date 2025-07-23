@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Управление_самолетами.Models;
 using Управление_самолетами.Services;
+using ClosedXML.Excel;
+using System.Diagnostics;
+using System.IO;
+
 
 namespace Управление_самолетами
 {
+
     public partial class MainForm : Form
     {
         private AppConfig _cfg;
@@ -34,22 +39,6 @@ namespace Управление_самолетами
             dgvManufacturers.DataSource = _db.GetManufacturers();
         }
 
-        // === Производители ===
-
-        private void btnAddManufacturer_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnEditManufacturer_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnDeleteManufacturer_Click(object sender, EventArgs e)
-        {
-            
-        }
 
         // === Самолёты ===
 
@@ -94,6 +83,9 @@ namespace Управление_самолетами
         {
             
         }
+
+        // === Производители ===
+
 
         private void dgvManufacturers_SelectionChanged(object sender, EventArgs e)
         {
@@ -180,9 +172,52 @@ namespace Управление_самолетами
             dgvManufacturers.ClearSelection();
         }
 
+
+
         private void dgvManufacturers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
+        private void btnPrintManufacturers_Click(object sender, EventArgs e)
+        {
+            if (dgvManufacturers.Rows.Count == 0)
+            {
+                MessageBox.Show("Нет данных для печати!");
+                return;
+            }
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Manufacturers");
+
+                worksheet.Cell(1, 1).Value = "ID";
+                worksheet.Cell(1, 2).Value = "Название";
+                worksheet.Cell(1, 3).Value = "Описание";
+
+                int row = 2;
+
+                foreach (DataGridViewRow dgRow in dgvManufacturers.Rows)
+                {
+                    if (dgRow.DataBoundItem is Manufacturer m)
+                    {
+                        worksheet.Cell(row, 1).Value = m.Id;
+                        worksheet.Cell(row, 2).Value = m.Name;
+                        worksheet.Cell(row, 3).Value = m.Description;
+                        row++;
+                    }
+                }
+
+                string fileName = Path.Combine(Application.StartupPath, "Manufacturers.xlsx");
+                workbook.SaveAs(fileName);
+
+                // Откроем папку и выделим файл
+                Process.Start("explorer.exe", $"/select,\"{fileName}\"");
+            }
+
+            /// <summary>
+            ///Функция кнопки Печать
+        }
+
     }
 }
