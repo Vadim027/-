@@ -21,14 +21,14 @@ namespace Управление_самолетами
     {
         private AppConfig _cfg;
         private DbService _db;
-        private NetworkService _net;
 
-        public MainForm(AppConfig cfg, DbService db, NetworkService net)
+
+        public MainForm(AppConfig cfg, DbService db)
         {
             InitializeComponent();
             _cfg = cfg;
             _db = db;
-            _net = net;
+
 
             LoadManufacturers();
 
@@ -49,7 +49,6 @@ namespace Управление_самолетами
         }
 
 
-        // === Самолёты ===
 
 
         /// <summary>
@@ -267,7 +266,7 @@ namespace Управление_самолетами
 
             if (cbManufacturer.SelectedValue == null)
             {
-                MessageBox.Show("Выберите производителя!");
+                MessageBox.Show("Выберите марку самолёта!");
                 return;
             }
 
@@ -275,7 +274,7 @@ namespace Управление_самолетами
 
             if (string.IsNullOrWhiteSpace(sn) || string.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Введите серийный номер и имя самолёта!");
+                MessageBox.Show("Введите серийный номер и название самолёта!");
                 return;
             }
 
@@ -369,8 +368,24 @@ namespace Управление_самолетами
 
         private void dgvAircrafts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-        }
+            if (dgvAircrafts.CurrentRow == null)
+            {
+                txtSerialNumber.Clear();
+                txtAircraftName.Clear();
+                txtAircraftDescription.Clear();
+                cbManufacturer.SelectedIndex = -1;
+                return;
+            }
+
+            var row = dgvAircrafts.CurrentRow.DataBoundItem as Aircraft;
+            if (row == null) return;
+
+            txtSerialNumber.Text = row.SerialNumber;
+            txtAircraftName.Text = row.Name;
+            txtAircraftDescription.Text = row.Description;
+            cbManufacturer.SelectedValue = row.ManufacturerId;
+        }  
+        
 
 
         // === Оперативная информация ===
@@ -505,6 +520,11 @@ namespace Управление_самолетами
 
                 Process.Start("explorer.exe", $"/select,\"{fileName}\"");
             }
+        }
+
+        private void tabManufacturers_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

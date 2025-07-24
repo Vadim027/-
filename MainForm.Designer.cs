@@ -52,12 +52,16 @@ namespace Управление_самолетами
             this.btnAddAircraft = new System.Windows.Forms.Button();
             this.dgvAircrafts = new System.Windows.Forms.DataGridView();
             this.tabStatus = new System.Windows.Forms.TabPage();
+            this.btnPrintStatus = new System.Windows.Forms.Button();
             this.btnUpdateGear = new System.Windows.Forms.Button();
             this.btnUpdateTurn = new System.Windows.Forms.Button();
             this.btnUpdateAltitude = new System.Windows.Forms.Button();
             this.btnUpdateSpeed = new System.Windows.Forms.Button();
             this.dgvStatus = new System.Windows.Forms.DataGridView();
-            this.btnPrintStatus = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabManufacturers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManufacturers)).BeginInit();
@@ -93,10 +97,11 @@ namespace Управление_самолетами
             this.tabManufacturers.Location = new System.Drawing.Point(4, 25);
             this.tabManufacturers.Name = "tabManufacturers";
             this.tabManufacturers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabManufacturers.Size = new System.Drawing.Size(688, 465);
+            this.tabManufacturers.Size = new System.Drawing.Size(858, 437);
             this.tabManufacturers.TabIndex = 0;
             this.tabManufacturers.Text = "Производители";
             this.tabManufacturers.UseVisualStyleBackColor = true;
+            this.tabManufacturers.Click += new System.EventHandler(this.tabManufacturers_Click);
             // 
             // btnPrintManufacturers
             // 
@@ -184,6 +189,10 @@ namespace Управление_самолетами
             // 
             // tabAircrafts
             // 
+            this.tabAircrafts.Controls.Add(this.label6);
+            this.tabAircrafts.Controls.Add(this.label5);
+            this.tabAircrafts.Controls.Add(this.label4);
+            this.tabAircrafts.Controls.Add(this.label3);
             this.tabAircrafts.Controls.Add(this.cbManufacturer);
             this.tabAircrafts.Controls.Add(this.txtAircraftDescription);
             this.tabAircrafts.Controls.Add(this.txtAircraftName);
@@ -196,7 +205,7 @@ namespace Управление_самолетами
             this.tabAircrafts.Location = new System.Drawing.Point(4, 25);
             this.tabAircrafts.Name = "tabAircrafts";
             this.tabAircrafts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAircrafts.Size = new System.Drawing.Size(688, 465);
+            this.tabAircrafts.Size = new System.Drawing.Size(858, 437);
             this.tabAircrafts.TabIndex = 1;
             this.tabAircrafts.Text = "Самолёты";
             this.tabAircrafts.UseVisualStyleBackColor = true;
@@ -204,21 +213,21 @@ namespace Управление_самолетами
             // cbManufacturer
             // 
             this.cbManufacturer.FormattingEnabled = true;
-            this.cbManufacturer.Location = new System.Drawing.Point(401, 259);
+            this.cbManufacturer.Location = new System.Drawing.Point(561, 257);
             this.cbManufacturer.Name = "cbManufacturer";
             this.cbManufacturer.Size = new System.Drawing.Size(121, 24);
             this.cbManufacturer.TabIndex = 8;
             // 
             // txtAircraftDescription
             // 
-            this.txtAircraftDescription.Location = new System.Drawing.Point(261, 259);
+            this.txtAircraftDescription.Location = new System.Drawing.Point(375, 259);
             this.txtAircraftDescription.Name = "txtAircraftDescription";
             this.txtAircraftDescription.Size = new System.Drawing.Size(100, 22);
             this.txtAircraftDescription.TabIndex = 7;
             // 
             // txtAircraftName
             // 
-            this.txtAircraftName.Location = new System.Drawing.Point(126, 259);
+            this.txtAircraftName.Location = new System.Drawing.Point(189, 259);
             this.txtAircraftName.Name = "txtAircraftName";
             this.txtAircraftName.Size = new System.Drawing.Size(100, 22);
             this.txtAircraftName.TabIndex = 6;
@@ -280,6 +289,7 @@ namespace Управление_самолетами
             this.dgvAircrafts.Size = new System.Drawing.Size(676, 207);
             this.dgvAircrafts.TabIndex = 0;
             this.dgvAircrafts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAircrafts_CellContentClick);
+            this.dgvAircrafts.SelectionChanged += new System.EventHandler(this.dgvAircrafts_SelectionChanged);
             // 
             // tabStatus
             // 
@@ -296,6 +306,16 @@ namespace Управление_самолетами
             this.tabStatus.TabIndex = 2;
             this.tabStatus.Text = "Оперативная информация";
             this.tabStatus.UseVisualStyleBackColor = true;
+            // 
+            // btnPrintStatus
+            // 
+            this.btnPrintStatus.Location = new System.Drawing.Point(546, 206);
+            this.btnPrintStatus.Name = "btnPrintStatus";
+            this.btnPrintStatus.Size = new System.Drawing.Size(136, 87);
+            this.btnPrintStatus.TabIndex = 5;
+            this.btnPrintStatus.Text = "Печать";
+            this.btnPrintStatus.UseVisualStyleBackColor = true;
+            this.btnPrintStatus.Click += new System.EventHandler(this.btnPrintStatus_Click);
             // 
             // btnUpdateGear
             // 
@@ -347,15 +367,41 @@ namespace Управление_самолетами
             this.dgvStatus.Size = new System.Drawing.Size(846, 194);
             this.dgvStatus.TabIndex = 0;
             // 
-            // btnPrintStatus
+            // label3
             // 
-            this.btnPrintStatus.Location = new System.Drawing.Point(546, 206);
-            this.btnPrintStatus.Name = "btnPrintStatus";
-            this.btnPrintStatus.Size = new System.Drawing.Size(136, 87);
-            this.btnPrintStatus.TabIndex = 5;
-            this.btnPrintStatus.Text = "Печать";
-            this.btnPrintStatus.UseVisualStyleBackColor = true;
-            this.btnPrintStatus.Click += new System.EventHandler(this.btnPrintStatus_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 240);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(117, 16);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Серийный номер";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(189, 239);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 16);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Название";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(372, 239);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 16);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Описание";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(561, 235);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(49, 16);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Марка";
             // 
             // MainForm
             // 
@@ -408,6 +454,10 @@ namespace Управление_самолетами
         private System.Windows.Forms.TextBox txtAircraftName;
         private System.Windows.Forms.TextBox txtSerialNumber;
         private System.Windows.Forms.Button btnPrintStatus;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
     }
 }
 

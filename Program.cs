@@ -13,12 +13,10 @@ namespace Управление_самолетами
         {
             var cfg = AppConfig.Load("Config/AppConfig.xml");
             var db = new DbService(cfg);
-            var net = new NetworkService(cfg);
-            net.Start();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(cfg, db, net));
+            Application.Run(new MainForm(cfg, db));
         }
     }
 }
